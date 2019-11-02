@@ -24,18 +24,15 @@ npm i
 ## Usage
 
 The application needs a server to obtain and save the modifications in the repository-object.
-
-### Server
-Open a terminal and execute the command:
 ```
+npm run build
 npm run serve
 ```
 
-### App
-Open another terminal and execute the command:
-```
-npm start
-```
+## Development
+To continue with the development of the tool itself:  
+1. Open a terminal and execute the command: `npm run serve`
+2. Open another terminal and execute the command: `npm start`
 
 ## Configuration
 
@@ -43,24 +40,19 @@ npm start
 
 ### Server
 It is possible to use the tooling with a local or remote server.  
-Specify the url and port in the configuration file.
-
-#### Local
-The local server is based on Express.
+If no url or port is specified,   
+**for localhost:** (Express)
 ```
-server:{
-  url : 'http://127.0.0.1',
-  port : '8080',
-},
+  url : 'http://127.0.0.1'
+  port : '8080'
 ```
-#### Remote
-For a remote server, the Php version has been implemented, in case node.js is not available:
+**and for remote:**   
+For a remote server, the Php version has been implemented, in case node.js is not available:  
 `fluorescent-app\server\index.php`
 ```
-server:{
-  url : 'http://{your.domain}/{sub-dir}/index.php',
-  port : '',
-},
+  url : 'http://{your.domain}/{sub-dir}/index.php'
+  port : ''
+
 ```
 It is necessary to consider the configuration of the http-headers:  
 CORS, Allowed Methods, etc...

@@ -1,7 +1,7 @@
 export default {
   server:{
-    url : 'http://127.0.0.1',
-    port : '8080',
+    url : '', 
+    port : '',
   },
   actions:{
     save: true,
