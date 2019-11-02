@@ -1,6 +1,8 @@
 # fluorescent-app
 A visualization tool for atomic design
 
+<img src="docs/assets/fluorescent-app_ui-selection.gif" />
+
 ## Motivation
 Fluorescence is the emission of light by a substance that has absorbed light or other electromagnetic radiation.  
 This emission of light is only observable when the stimulant light is still providing light to the organism/object.  
@@ -9,7 +11,7 @@ Fluorescence in the life sciences is used generally as a non-destructive way of 
 
 ### Atomic Design
 
-<img src="docs/assets/instagram-atomic.png" />  
+<img src="docs/assets/instagram-atomic.png" width="400px"/>
 
 <small>**Source:** http://atomicdesign.bradfrost.com/chapter-2/</small>
 
@@ -92,23 +94,25 @@ items:[
 ## UI Elements & Features
 
 ### Items Selection
-<img src="docs/assets/fluorescent-app_ui-selection.jpg" />  
+<img src="docs/assets/fluorescent-app_ui-selection.gif" />
+<br /><br />
+<img src="docs/assets/fluorescent-app_ui-selection.jpg" width="500px" />  
 
 ### Items Connection
-<img src="docs/assets/fluorescent-app_ui-connection.jpg" />
+<img src="docs/assets/fluorescent-app_ui-connection.gif" />
 
 ### Item Options
-<img src="docs/assets/fluorescent-app_ui-modal-element-options.jpg" />  
+<img src="docs/assets/fluorescent-app_ui-modal-element-options.gif" />  
 
 ### Item Add
-<img src="docs/assets/fluorescent-app_ui-modal-add.jpg" />  
+<img src="docs/assets/fluorescent-app_ui-modal-add.gif" />  
 
 ### Command-actions modal
-**Keys:** Ctrl + P
-<img src="docs/assets/fluorescent-app_ui-modal-cmd.jpg" />  
+**Key:** SpaceBar
+<img src="docs/assets/fluorescent-app_ui-modal-cmd.gif" />  
 
 ### Server Action Status
-<img src="docs/assets/fluorescent-app_ui-server.jpg" />  
+<img src="docs/assets/fluorescent-app_ui-server.gif" />  
 
 ### Directory Parser (not implemented)
 <img src="docs/assets/fluorescent-app_ui-radiation.jpg" />  
