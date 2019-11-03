@@ -19,7 +19,17 @@ Fluorescence in the life sciences is used generally as a non-destructive way of 
 <img src="docs/assets/fluorescent-app_screenshot-01.jpg" />  
 
 ## Installation
+In Project directory
+
+### Clone
 ```
+git clone --depth=1 https://github.com/chema-mengibar/fluorescent-app.git .fluorescent
+rm -rf ./.fluorescent/.git
+rm -rf ./.fluorescent/.gitignore
+```
+### Install
+```
+cd .fluorescent
 npm i
 ```
 
