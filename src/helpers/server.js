@@ -57,6 +57,22 @@ export default {
       console.log( 'response error', data);
     })
   },
+  generateItem:( itemType, itemName, callBack ) => {
+    fetch( `${url}${port}/plop`, {
+      method: 'post',
+      headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ type:itemType, name: itemName })
+    }).then(function(response) {
+      console.log('CALLBACK')
+      callBack && callBack()
+      return response.json()
+    }).then(function(data) {
+      console.log( 'response error', data);
+    })
+  },
   getRepo:( )=>{
     const abortController = new AbortController() // issue:fetch-state
     const signal = abortController.signal

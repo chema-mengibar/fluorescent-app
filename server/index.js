@@ -4,6 +4,7 @@ const path = require('path');
 const fs = require('fs');
 const cors = require('cors');
 const helmet = require('helmet');
+const exec = require('child_process').exec;
 
 const serverDir = path.join(__dirname)
 const distDir = path.join(__dirname,'..','dist')
@@ -30,6 +31,42 @@ app.get('/repo', function (req, res) {
     let rawdata = fs.readFileSync(pathTarget);
     let jsonData = JSON.parse(rawdata);
     res.json(jsonData)
+});
+
+function cleanNameToFile( s ){
+    return  s.replace(/[^a-z0-9]/gi, '-').toLowerCase();
+}
+
+app.post('/plop', function (req, res) {
+    console.log('REQ:POST plop')
+    let objectData  = req.body;
+    // Mapp repository item (config.layout items) type to plop promp types 
+    let mappedType = ''
+    switch(objectData.type) {
+        case 'atom':
+            mappedType= 'atoms';
+            break;
+        case 'molecule':
+            mappedType= 'molecules';
+            break;
+        case 'organism':
+            mappedType= 'organisms';
+            break;
+        // case 'page':
+        //     mappedType= 'pages';
+        //     break;
+    } 
+
+    const cleanedName = cleanNameToFile( objectData.name );
+
+    const myShellScript = exec( `plop component -- --name "${cleanedName}" --type "${mappedType}"`);
+    myShellScript.stdout.on('data', (data)=>{
+        console.log(data); 
+        res.sendStatus(201)
+    });
+    myShellScript.stderr.on('data', (data)=>{
+        res.sendStatus(501)
+    });
 });
 
 app.get('/ecco', function (req, res) {
