@@ -10,6 +10,7 @@ export default {
     ecco: true,
     delete: true,
     modify: true,
+    generate: true,
   },
   layout: ['atom','molecule','organism','page'],
 }

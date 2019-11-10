@@ -1,6 +1,7 @@
 import React, {useContext, useState, useLayoutEffect } from "react";
 
 import Config  from '../../config'
+import Server from '../../helpers/server'
 import modalService from '../../helpers/modalService'
 import AppContext from '../../helpers/contexts/App.context'
 import {getContext} from '../../helpers/contexts/Repository.context'
@@ -123,18 +124,44 @@ export const Node = ({ type, label, id, }) => {
   // useLayoutEffect(() => {if( isSelected ){ } }, [isSelected]);
 
   const listCommands = [
-    { name:'Delete item', show: Config.actions.delete, action:()=>{ 
-      deleteItem(id) 
-      dispatch({ type: "change" , payload: type});
-      dispatchApp({ type: "setServerStatus" , payload:{ msg:'Changes', status:'warning'}})
-    }},
     { 
-      name:'Modify item', show: Config.actions.modify, config:'modify', 
+      name:'Delete item',
+      show: Config.actions.delete, 
+      action:()=>{ 
+        deleteItem(id) 
+        dispatch({ type: "change" , payload: type});
+        dispatchApp({ type: "setServerStatus" , payload:{ msg:'Changes', status:'warning'}})
+      }
+    },
+    { 
+      name:'Modify item',
+      show: Config.actions.modify,
+      config:'modify', 
       action:()=>{ 
         modalService.setOnSubmit( componentOnSubmit )
         selectNode()
         dispatchApp({ type: 'setDialogName' , payload: `componentName`})
         dispatchApp({ type: 'openDialog'})
+      }
+    },
+    { 
+      name:'Create item in src',
+      show: Config.actions.generate,
+      config:'modify', 
+      action:()=>{ 
+        dispatchApp({ type: "setServerStatus" , payload:{ msg:'Creating', status:'loading'}})
+
+        function callBack(){
+          console.log('CALLBACK ')
+          setTimeout( 
+            () => dispatchApp({ type: "setServerStatus" , payload:{ msg:'Created', status:'success'}}),
+            100)
+        }
+        
+        const {fetchPromise, cleanup} = Server.generateItem( type, label, callBack() )
+        fetchPromise.then(json =>{
+          console.log(json)
+        });
       }
     },
   ]
