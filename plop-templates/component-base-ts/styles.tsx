@@ -2,7 +2,7 @@ import styled, { css } from "styled-components";
 
 import { {{> MyName }}Props } from ".";
 
-const {{> MyName }}Styled = styled.div<{{> MyName }}Props>`
+export const {{> MyName }}Styled = styled.div<{{> MyName }}Props>`
   // CSS here
 
   ${(props: any): any => props.id && css`

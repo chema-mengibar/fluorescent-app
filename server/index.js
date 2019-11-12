@@ -37,8 +37,19 @@ function cleanNameToFile( s ){
     return  s.replace(/[^a-z0-9]/gi, '-').toLowerCase();
 }
 
+function execShellCommand(cmd) {
+    return new Promise((resolve, reject) => {
+        exec(cmd, (error, stdout, stderr) => {
+        if (error) {
+            console.warn(error);
+        }
+        resolve(stdout? stdout : stderr);
+        });
+    });
+}
+
 app.post('/plop', function (req, res) {
-    console.log('REQ:POST plop')
+    console.log('REQ:POST plop', req.body)
     let objectData  = req.body;
     // Mapp repository item (config.layout items) type to plop promp types 
     let mappedType = ''
@@ -52,21 +63,17 @@ app.post('/plop', function (req, res) {
         case 'organism':
             mappedType= 'organisms';
             break;
-        // case 'page':
-        //     mappedType= 'pages';
-        //     break;
+        case 'page':
+            mappedType= 'pages';
+            break;
     } 
 
     const cleanedName = cleanNameToFile( objectData.name );
-
-    const myShellScript = exec( `plop component -- --name "${cleanedName}" --type "${mappedType}"`);
-    myShellScript.stdout.on('data', (data)=>{
-        console.log(data); 
-        res.sendStatus(201)
-    });
-    myShellScript.stderr.on('data', (data)=>{
-        res.sendStatus(501)
-    });
+    const cmdStr = `plop component -- --name "${cleanedName}" --type "${mappedType}"`
+    execShellCommand( cmdStr ).then(
+        (success)=>{ res.sendStatus(201) },
+        (error)=>{ res.sendStatus(501) }
+    )
 });
 
 app.get('/ecco', function (req, res) {
