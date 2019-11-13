@@ -14,10 +14,21 @@ import {Conector} from './conector'
 import {  NodeWrapper, Box, BoxCol, Sticker, Dotted, Li } from './node.styles'
 
 
-export const Node = ({ type, label, id, }) => {
+export const Node = ({ type, label, progress, id, }) => {
   
   const { state, dispatch } = useContext( getContext() )
   const { dispatchApp } = useContext( AppContext )
+
+  function mappProgress( progStr ){
+    switch( progStr ){
+      case '0':
+        return 'P'    
+      case '1':
+        return 'C'    
+      case '2':
+        return 'CI'    
+    }
+  }
   
   const [isSelected, setIsSelected] = useState( (state.selectedNodeId == id) );
   const [isCreated, setIsCreated] = useState( false );
@@ -27,6 +38,7 @@ export const Node = ({ type, label, id, }) => {
   const [hasParents, setHasParents] = useState( false );
   const [nodeIdFrom, setNodeIdFrom] = useState( false );
   const [nodeIdTo, setNodeIdTo] = useState( false );
+  const [nodeProgress, setNodeProgress] = useState( mappProgress(progress) );
 
   const [visiblePanel, setVisisblePanel] = useState( false );
 
@@ -166,6 +178,8 @@ export const Node = ({ type, label, id, }) => {
     },
   ]
 
+
+
   return (
     <NodeWrapper>
       <Conector 
@@ -181,7 +195,7 @@ export const Node = ({ type, label, id, }) => {
           {label}
         </BoxCol>
         <BoxCol>
-          <Sticker {...isCreated} >{ isCreated ? 'C' : 'P'}</Sticker>
+          <Sticker progressKey={nodeProgress} >{ nodeProgress }</Sticker>
         </BoxCol>
         <BoxCol>
           <Dotted visible={visiblePanel} onClick={()=> {setVisisblePanel(true)} }/>
