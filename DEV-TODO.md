@@ -7,11 +7,9 @@
 - [ ] Extra template for pages (CG-004)
 - [ ] Multi-generate self and children components (CG-005)
 
-
 ## Directory parser
-- [ ] Flag functionality in nodes (DP-001)
+- [@] Nodes status flag (DP-001)
 - [ ] Parser and status object (DP-002)
-- [ ] Status object to node-flags (DP-003)
 
 ## Design
 - [ ] Add dynamic logo to top-bar  (D-001)
