@@ -63,6 +63,7 @@ export const Menu = (props) => {
     const {fetchPromise, cleanup} = Server.sendEcco( action )
     fetchPromise.then(json =>{
       console.log(json)
+      
     });
   } 
 
@@ -155,11 +156,17 @@ export const Menu = (props) => {
           </Block>
           { Config.actions.ecco && 
             <Block>
-              <Button onClick={()=> { sendEcco()}} >
-                Send Radiation <IconEcco size={20} />
+              <Button onClick={()=> { 
+                sendEcco()
+                triggerUpdate()
+                dispatchApp({ type: "setServerStatus" , payload:{ msg:'Monitor', status:'success'}})
+         
+                
+                }} >
+                Send Ecco <IconEcco size={20} />
               </Button>
               <Button dark onClick={()=> { sendEcco('stop')}} >
-                Stop Radiation
+                Stop Ecco
               </Button>
             </Block>
           }

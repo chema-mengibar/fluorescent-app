@@ -31,20 +31,21 @@ const path = require('path');
 const fs = require('fs');
 
 
-class Parser {
+class Monitor {
 
   constructor( ) {
     this.repoFileName = 'repository.json';
-    this.pathTarget = path.join('./', this.repoFileName);
+    this.reportsDir = path.join( __dirname, '')
+    this.pathTarget = path.join(this.reportsDir, this.repoFileName);
     let rawdata = fs.readFileSync( this.pathTarget);
     this.repo = JSON.parse(rawdata);
-    this.reportsDir = '';
+
     this.report = {
       progress: [],
       imports: [],
     }
 
-    this.srcCompDir = '../../src/components/'; // todo: configurable
+    this.srcCompDir = path.join(this.reportsDir, '../../src/components/'); // todo: configurable
 
     this.camelCase = require('lodash/camelCase');
     this.dashCase = require('lodash/kebabCase');
@@ -74,7 +75,7 @@ class Parser {
   }
 
   saveReport( ){
-    const file_name =  'parser-report.json';
+    const file_name =  'monitor.status.json';
     const pathTarget = path.join('./', this.reportsDir, file_name);
     let data = JSON.stringify( this.report, null, 2);
     fs.writeFileSync( pathTarget, data);
@@ -163,16 +164,19 @@ class Parser {
   }
 }
 
+const monitor = new Monitor()
 
-new Parser().loop()
-
-
+module.exports = {
+  run: ()=>{
+    console.log("Monitor is running")
+    monitor.loop()
+  }
+}
 
 /*
 
 WARNING
-  Discordance plop.dashCase VS lodash.kebabCase:
-    Button1 -> button-1 VS button1
+
 
   Line beginning  commented import
   var re = new RegExp('^import ' + childComponentName + ' from',"gm");

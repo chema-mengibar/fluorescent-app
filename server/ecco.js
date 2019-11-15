@@ -1,8 +1,10 @@
+const monitor = require( './monitor');
 
 let status = 'wait'; // wait, run, error
 
 function run(){
-  console.log( 'ecco run' );
+  console.log( 'ecco run: monitor' );
+  monitor.run();
   setStatus('run');
 }
 
