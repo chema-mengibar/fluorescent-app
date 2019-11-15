@@ -21,11 +21,11 @@ export const Node = ({ type, label, progress, id, }) => {
 
   function mappProgress( progStr ){
     switch( progStr ){
-      case '0':
+      case 'planned':
         return 'P'    
-      case '1':
+      case 'created':
         return 'C'    
-      case '2':
+      case 'imports':
         return 'CI'    
     }
   }
