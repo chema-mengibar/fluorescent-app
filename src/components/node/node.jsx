@@ -191,7 +191,9 @@ export const Node = ({ type, label, progress, id, }) => {
       <Box isSelected={isSelected} >
         <BoxCol 
           status={getStatus()} 
-          onClick={ ()=>selectNode()}>
+          onClick={ ()=>selectNode()}
+          title={id}
+          >
           {label}
         </BoxCol>
         <BoxCol>

@@ -4,17 +4,41 @@
 
 */
 
+const cDashCase = require('lodash/kebabCase');
+const cCamelCase = require('lodash/camelCase');
+
+const cPascalCase = (s)=> {
+  let str = cCamelCase(s)
+  return str.replace(/\w+/g,
+    function(w){ return w[0].toUpperCase() + w.slice(1).toLowerCase(); });
+}
+
 const srcComponentDir = '../src/components/'
 
 module.exports = function (plop) {
 
-  plop.setPartial('myName', '{{camelCase name}}');
-  plop.setPartial('my-name', '{{dashCase name}}');
-  plop.setPartial('MyName', '{{pascalCase name}}');
+
+  plop.setHelper('cDashCase', function (text) {
+      return cDashCase(text);
+  });
+
+  plop.setHelper('cCamelCase', function (text) {
+      return cCamelCase(text);
+  });
+
+  plop.setHelper('cPascalCase', function (text) {
+      return cPascalCase(text);
+  });
 
   plop.setHelper('rename', function (text) {
     return text.toUpperCase();
   });
+
+  plop.setPartial('myName', '{{cCamelCase name}}');
+  plop.setPartial('my-name', '{{cDashCase name}}');
+  plop.setPartial('MyName', '{{cPascalCase name}}');
+
+
   plop.setGenerator('component', {
     description: 'basic component',
     prompts: [
@@ -38,22 +62,22 @@ module.exports = function (plop) {
     actions: [
       {
         type: 'add',
-        path: srcComponentDir + '{{type}}/{{dashCase name}}/index.tsx',
+        path: srcComponentDir + '{{type}}/{{cDashCase name}}/index.tsx',
         templateFile: 'plop-templates/component-base-ts/index.tsx'
       },
       {
         type: 'add',
-        path: srcComponentDir + '{{type}}/{{dashCase name}}/{{dashCase name}}.mocks.tsx',
+        path: srcComponentDir + '{{type}}/{{cDashCase name}}/{{cDashCase name}}.mocks.tsx',
         templateFile: 'plop-templates/component-base-ts/mocks.tsx'
       },
       {
         type: 'add',
-        path: srcComponentDir + '{{type}}/{{dashCase name}}/{{dashCase name}}.stories.tsx',
+        path: srcComponentDir + '{{type}}/{{cDashCase name}}/{{cDashCase name}}.stories.tsx',
         templateFile: 'plop-templates/component-base-ts/stories.tsx'
       },
       {
         type: 'add',
-        path: srcComponentDir + '{{type}}/{{dashCase name}}/{{dashCase name}}.styles.tsx',
+        path: srcComponentDir + '{{type}}/{{cDashCase name}}/{{cDashCase name}}.styles.tsx',
         templateFile: 'plop-templates/component-base-ts/styles.tsx'
       }
     ],
