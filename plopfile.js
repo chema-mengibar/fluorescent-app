@@ -7,7 +7,7 @@
 const cDashCase = require('lodash/kebabCase');
 const cCamelCase = require('lodash/camelCase');
 
-const cPascalCase = (s)=> {
+const cPascalCase = (s)=> { //todo: unify method in module
   let str = cCamelCase(s)
   return str.replace(/\w+/g,
     function(w){ return w[0].toUpperCase() + w.slice(1).toLowerCase(); });
