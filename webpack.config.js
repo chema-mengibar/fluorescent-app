@@ -8,6 +8,7 @@ module.exports = {
     publicPath: "/",
     filename: 'app.js'
   },
+  devtool: 'source-map',
   resolve: {
     extensions: [".jsx",".js"],
     // alias: {

@@ -34,5 +34,19 @@ export const theme = {
       base:'#ffffff',
       l1:''
     }
+  },
+  complement:{
+    default:{
+      base:'#707070',
+    },
+    primary:{
+      base:'#23FBB4',
+    },
+    secondary:{
+      base:'#2C7FFF',
+    },
+    error:{
+      base:'#ff7c7c',
+    },
   }
 }

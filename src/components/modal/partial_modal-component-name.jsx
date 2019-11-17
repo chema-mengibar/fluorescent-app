@@ -33,7 +33,6 @@ export const ModalComponentName = ({
   let selectedItem = null
 
   useEffect(() => {
-    console.log( stateApp.dialogName )
     if( stateApp.dialogName === modalId && stateApp.dialogIsOpen ){
       setTimeout(() => { 
         if(state.selectedNodeId){

@@ -21,6 +21,7 @@ export const addItem = ( _type, _label, _dispatch) => {
   const newItem = {
     type: _type,
     label: _label,
+    progress: "planned",
     id: generateId( _type )
   }
   repository.items.push(newItem)
@@ -28,10 +29,19 @@ export const addItem = ( _type, _label, _dispatch) => {
 }
 
 export const modifyItem = ( _id, _label) => {
-
   const items = repository.items.map( (item)=> {
     if(item.id === _id ){
       item.label = _label
+    }
+    return item
+  })
+  repository.items = [...items]
+}
+
+export const modifyItemProgress = ( _id, _progress) => {
+  const items = repository.items.map( (item)=> {
+    if(item.id === _id ){
+      item.progress = _progress
     }
     return item
   })
@@ -100,7 +110,6 @@ export function connectFromTo( fromNode, toNode){
 }
 
 export function disconnecToFrom( toId, fromId ){
-  console.log( toId, fromId  )
   const toNode = getTreeItemById( toId )
   const filteredChildren = toNode.children.filter( childId => childId != fromId )
 

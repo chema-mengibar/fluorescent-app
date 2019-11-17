@@ -51,14 +51,30 @@ export const BoxCol = styled.div`
   }
 `
 
+function mappProgressToColor( progKey ){
+  switch( progKey ){
+    case 'P':
+      return theme.complement.default.base   
+    case 'C':
+      return theme.complement.primary.base    
+    case 'CI':
+      return theme.complement.secondary.base    
+    case 'CIe':
+      return theme.complement.error.base    
+  }
+}
+
 export const Sticker = styled.div`
   min-width:30px;
   padding:2px;
   border-radius: 5px;
-  background-color: ${colorize.hexToRgbA('#ffffff', '.1') };
+  /* background-color: ${ ({progressKey})=> colorize.hexToRgbA( mappProgressToColor(progressKey), '.5') }; */
+  /* color: ${colorize.hexToRgbA('#ffffff', '.5') }; */
+  border: 1px solid ${ ({progressKey})=> colorize.hexToRgbA( mappProgressToColor(progressKey), '.5') };
+  color: ${ ({progressKey})=> colorize.hexToRgbA( mappProgressToColor(progressKey), '.5') };
   text-align:center;
   font-size:10px;
-  color: ${colorize.hexToRgbA('#ffffff', '.2') };
+  transition: all 0.5s ease;
 `
 
 export const Dotted = styled.div`

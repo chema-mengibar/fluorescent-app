@@ -11,6 +11,18 @@
 - https://helmetjs.github.io/docs/dont-sniff-mimetype/
 - https://webpack.js.org/configuration/dev-server/
 
+
+## Folder Names
+Plop and the parser works with the node.label string
+Plop uses to create the folder and partial in code
+and the parser to check the import in code of connected components.
+This folder name should be keebabCase, but Plop use a self method to convert the name
+and Parse us lodash.kebabCase
+
+It´s posible to define Helper in Plop. Helper are a reference of a Method called in plop tasks.
+For this case have been created to helper that uses lodash camel and kebab case,
+to avoid custom cases functions of Plop
+
 ## Issues
 
 ### useEffect and fetch promise

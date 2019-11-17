@@ -4,6 +4,7 @@ const path = require('path');
 const fs = require('fs');
 const cors = require('cors');
 const helmet = require('helmet');
+const exec = require('child_process').exec;
 
 const serverDir = path.join(__dirname)
 const distDir = path.join(__dirname,'..','dist')
@@ -12,6 +13,7 @@ const file_name =  'repository.json';
 const pathTarget = path.join(serverDir, file_name)
 
 const ecco = require( serverDir + '/ecco');
+
 
 const PORT = process.env.PORT || 8080
 
@@ -32,11 +34,59 @@ app.get('/repo', function (req, res) {
     res.json(jsonData)
 });
 
+function cleanNameToFile( s ){
+    return  s.replace(/[^a-z0-9]/gi, '-').toLowerCase();
+}
+
+function execShellCommand(cmd) {
+    return new Promise((resolve, reject) => {
+        exec(cmd, (error, stdout, stderr) => {
+        if (error) {
+            console.warn(error);
+        }
+        resolve(stdout? stdout : stderr);
+        });
+    });
+}
+
+app.post('/plop', function (req, res) {
+    console.log('REQ:POST plop', req.body)
+    let objectData  = req.body;
+    // Mapp repository item (config.layout items) type to plop promp types 
+    let mappedType = ''
+    switch(objectData.type) {
+        case 'atom':
+            mappedType= 'atoms';
+            break;
+        case 'molecule':
+            mappedType= 'molecules';
+            break;
+        case 'organism':
+            mappedType= 'organisms';
+            break;
+        case 'page':
+            mappedType= 'pages';
+            break;
+    } 
+
+    const cleanedName = cleanNameToFile( objectData.name );
+    const cmdStr = `plop component -- --name "${cleanedName}" --type "${mappedType}"`
+    execShellCommand( cmdStr ).then(
+        (success)=>{ res.sendStatus(201) },
+        (error)=>{ res.sendStatus(501) }
+    )
+});
+
 app.get('/ecco', function (req, res) {
     console.log('REQ:GET ecco')
     if( ecco.getStatus() !== 'run' ){
         ecco.run();
     }
+    let respObj = {process:'ecco', status: ecco.getStatus()};
+    res.json(respObj)
+});
+
+app.get('/ecco-status', function (req, res) {
     let respObj = {process:'ecco', status: ecco.getStatus()};
     res.json(respObj)
 });

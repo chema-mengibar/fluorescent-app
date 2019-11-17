@@ -1,22 +1,34 @@
 import React, {useContext, useState, useLayoutEffect } from "react";
 
 import Config  from '../../config'
+import Server from '../../helpers/server'
 import modalService from '../../helpers/modalService'
 import AppContext from '../../helpers/contexts/App.context'
 import {getContext} from '../../helpers/contexts/Repository.context'
-
 import { modifyItem, deleteItem, getParents, getChildren } from '../../helpers/repositoryService/repositoryService'
-
 import Panel from '../panel/panel'
-import {Conector} from './conector'
 
+import {Conector} from './conector'
 import {  NodeWrapper, Box, BoxCol, Sticker, Dotted, Li } from './node.styles'
 
-
-export const Node = ({ type, label, id, }) => {
+export const Node = ({ type, label, progress, id, }) => {
   
   const { state, dispatch } = useContext( getContext() )
   const { dispatchApp } = useContext( AppContext )
+
+  function mappProgress( progStr ){
+    switch( progStr ){
+      case 'created':
+        return 'C'    
+      case 'imports':
+        return 'CI'    
+      case 'imports-error':
+        return 'CIe'    
+      default:
+      case 'planned':
+        return 'P'    
+    }
+  }
   
   const [isSelected, setIsSelected] = useState( (state.selectedNodeId == id) );
   const [isCreated, setIsCreated] = useState( false );
@@ -26,6 +38,7 @@ export const Node = ({ type, label, id, }) => {
   const [hasParents, setHasParents] = useState( false );
   const [nodeIdFrom, setNodeIdFrom] = useState( false );
   const [nodeIdTo, setNodeIdTo] = useState( false );
+  const [nodeProgress, setNodeProgress] = useState( mappProgress(progress) );
 
   const [visiblePanel, setVisisblePanel] = useState( false );
 
@@ -84,6 +97,10 @@ export const Node = ({ type, label, id, }) => {
   useLayoutEffect(() => {
     setIsSelected( state.selectedNodeId == id )
   }, [state.selectedNodeId]);
+ 
+  useLayoutEffect(() => {
+    setNodeProgress( mappProgress(progress) )
+  }, [progress]);
 
   useLayoutEffect(() => {
     setIsSelected( state.selectedNodeId == id )
@@ -123,13 +140,19 @@ export const Node = ({ type, label, id, }) => {
   // useLayoutEffect(() => {if( isSelected ){ } }, [isSelected]);
 
   const listCommands = [
-    { name:'Delete item', show: Config.actions.delete, action:()=>{ 
-      deleteItem(id) 
-      dispatch({ type: "change" , payload: type});
-      dispatchApp({ type: "setServerStatus" , payload:{ msg:'Changes', status:'warning'}})
-    }},
     { 
-      name:'Modify item', show: Config.actions.modify, config:'modify', 
+      name:'Delete item',
+      show: Config.actions.delete, 
+      action:()=>{ 
+        deleteItem(id) 
+        dispatch({ type: "change" , payload: type});
+        dispatchApp({ type: "setServerStatus" , payload:{ msg:'Changes', status:'warning'}})
+      }
+    },
+    { 
+      name:'Modify item',
+      show: Config.actions.modify,
+      config:'modify', 
       action:()=>{ 
         modalService.setOnSubmit( componentOnSubmit )
         selectNode()
@@ -137,7 +160,25 @@ export const Node = ({ type, label, id, }) => {
         dispatchApp({ type: 'openDialog'})
       }
     },
+    { 
+      name:'Create item in src',
+      show: Config.actions.generate,
+      config:'modify', 
+      action:()=>{ 
+        dispatchApp({ type: "setServerStatus" , payload:{ msg:'Creating', status:'loading'}})
+        function callBack(){
+          setTimeout( 
+            () => dispatchApp({ type: "setServerStatus" , payload:{ msg:'Created', status:'success'}}),
+            100)
+        }
+        const {fetchPromise, cleanup} = Server.generateItem( type, label, callBack() )
+        fetchPromise.then(json =>{
+          // console.log(json)
+        });
+      }
+    },
   ]
+
 
   return (
     <NodeWrapper>
@@ -150,11 +191,13 @@ export const Node = ({ type, label, id, }) => {
       <Box isSelected={isSelected} >
         <BoxCol 
           status={getStatus()} 
-          onClick={ ()=>selectNode()}>
+          onClick={ ()=>selectNode()}
+          title={id}
+          >
           {label}
         </BoxCol>
         <BoxCol>
-          <Sticker {...isCreated} >{ isCreated ? 'C' : 'P'}</Sticker>
+          <Sticker progressKey={nodeProgress} >{ nodeProgress }</Sticker>
         </BoxCol>
         <BoxCol>
           <Dotted visible={visiblePanel} onClick={()=> {setVisisblePanel(true)} }/>

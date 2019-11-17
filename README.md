@@ -41,6 +41,8 @@ npm run build
 npm run serve
 ```
 
+Open `localhost:8080` in your internet browser  
+
 ## Development
 To continue with the development of the tool itself:  
 1. Open a terminal and execute the command: `npm run serve`
@@ -78,8 +80,8 @@ root
  |- repository.json
 ```
 
-### Actions
-It is possible to configure which actions are allowed in the application and show/hide the buttons.
+### Panel Menu Actions
+It is possible to configure in the application, which actions are allowed  and show/hide the buttons.
 ```
 actions:{
   save: false,
@@ -100,6 +102,26 @@ items:[
   },
   ...
 ```
+
+
+## Server-Client Communication
+
+<img src="docs/server-client_communication/server-client.jpg" width="500px"/>
+
+### Ecco
+It is a service that controls sub-processes that are executed on the server, like "monitor"
+
+### Plop
+It is a service that executes the plop script, allowing the physical creation of components.  
+**More info in** [plopjs.com](https://plopjs.com/)
+
+### Monitor
+It is a script that compares the schema and relation (parent/child) of the components with the physical structure and the "imports" in the project directory where the fluorescent application is used.
+
+With this function it is possible for example to visualize:
+- which components have been created
+- if the planned connections are consistent.
+
 
 ## UI Elements & Features
 
@@ -124,13 +146,49 @@ items:[
 ### Server Action Status
 <img src="docs/assets/fluorescent-app_ui-server.gif" />  
 
-### Directory Parser (not implemented)
-<img src="docs/assets/fluorescent-app_ui-radiation.jpg" />  
+### Component Generator and Monitor
+**(see Server-Client Communication)**   
+This function allows to create physically components (folder and script files) and observe the status between connexions and imports in script-files in the "ROOT/src/components" directory of the project where fluorescent-app is used.  
+
+#### Step 1 - Planning your components
+Start planning which components you will need.  <br /> Initially there are no connections and all elements have the " P " label of "planned".  
+
+<img src="docs/assets/fluorescent-app_generator-monitor_step-planning.jpg" width="100%"/>
+
+#### Step 2 - Create directory and component code files
+In the panel is shown the option to "create element".  
+So, a directory will be created and the files defined in the plop-templates
+
+<img src="docs/assets/fluorescent-app_generator-monitor_step-create-plop.jpg" width="100%"/>
+
+#### Step 3 - Monitoring the components status
+Run the "ecco" function to update the status of the elements.   
+The found elements receive the "C" label of "created".
+
+<img src="docs/assets/fluorescent-app_generator-monitor_step-created.jpg" width="100%"/>
+
+#### Step 4 - Create connections
+Now we can create the connections between elements and run the function "ecco" again.  
+If the parent component does not define imports of child elements as connections, the "CIe" label of "created but with import errors" will be displayed.
+
+<img src="docs/assets/fluorescent-app_generator-monitor_step-edit-imports.jpg" width="100%"/>
+
+#### Step 5 - Update imports in code files
+Add imports in any component file in the code editor
+
+<img src="docs/assets/fluorescent-app_generator-monitor_step-imports.jpg" width="100%"/>
+
+#### Step 6 - Update imports status flag
+If we run the "ecco" function again and all imports of the component are satisfied,  
+the label will be updated to "CI" of "created imports".
+
+<img src="docs/assets/fluorescent-app_generator-monitor_step-ci.jpg" width="100%"/>
 
 ## Sources
 
 ### Icons
-- https://www.flaticon.com/authors/dave-gandy
-- https://www.flaticon.com/authors/freepik
-- https://www.flaticon.com/authors/vaadin
-- https://www.flaticon.com/authors/google
+- www.flaticon.com/authors/dave-gandy
+- www.flaticon.com/authors/dave-gandy
+- www.flaticon.com/authors/freepik
+- www.flaticon.com/authors/vaadin
+- www.flaticon.com/authors/google
