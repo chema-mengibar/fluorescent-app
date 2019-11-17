@@ -33,16 +33,17 @@ export const ModalCmd = ({
 
   const listCommands = [
     { name:'Clear Connectors', action:()=>{ dispatch({ type: "resetFromTo" }); }},
-    { name:'Item copy', action:()=>{ console.log(' action called')}},
-    { name:'Item delete', action:()=>{ console.log(' action called')}},
-    { name:'Sort by Atoms', action:()=>{ console.log(' action called')}},
+    // { name:'Item copy', action:()=>{ console.log(' action called')}},
+    // { name:'Item delete', action:()=>{ console.log(' action called')}},
+    // { name:'Sort by Atoms', action:()=>{ console.log(' action called')}},
     { name:'Item deselect', action:()=>{ 
       dispatch({ type: "reset"})
     }},
     { name:'Delete all items', action:()=>{ 
-      emptyItems()
       emptyTree()
+      emptyItems()
       paintColumns()
+      dispatch({ type: "reset"})
       dispatchApp({ type: "setServerStatus" , payload:{ msg:'Changes', status:'warning'}})
     }},
     { name:'Delete all connection', action:()=>{ 

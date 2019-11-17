@@ -29,7 +29,6 @@ export default ({
   const [isInside, setIsInside] = useState( true )
 
   useLayoutEffect(() => {
-    console.log('inside', coord( panelRef.current ))
     setIsInside( coord( panelRef.current ) )
   },[visible])
 

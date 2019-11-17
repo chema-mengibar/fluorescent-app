@@ -4,7 +4,7 @@ import Config  from '../../config'
 import Server from '../../helpers/server';
 import AppContext from '../../helpers/contexts/App.context'
 import RepositoryContext from '../../helpers/contexts/Repository.context'
-import { getRepo, connectFromTo, getItemById, disconnecToFrom} from '../../helpers/repositoryService/repositoryService'
+import { setRepo, getRepo, connectFromTo, getItemById, disconnecToFrom} from '../../helpers/repositoryService/repositoryService'
 import {Button} from '../button/button.styles'
 
 import {theme} from '../../styles/theme.styles'
@@ -62,9 +62,33 @@ export const Menu = (props) => {
   function sendEcco( action ){
     const {fetchPromise, cleanup} = Server.sendEcco( action )
     fetchPromise.then(json =>{
-      console.log(json)
+      dispatchApp({ type: "setServerStatus" , payload:{ msg:'Ecco runs', status:'loading'}})
+      pollingEccoStatus()
     });
   } 
+
+  function pollingEccoStatus(){
+    // let counter = 0; // todo: limit tries?
+    let timerId = setInterval(() => {
+      const {fetchPromise, cleanup} = Server.sendEcco( 'status' )
+      fetchPromise.then(json =>{
+        if( json.process === 'ecco' && json.status === 'stop' ){
+          dispatchApp({ type: "setServerStatus" , payload:{ msg:'Ecco ready', status:'success'}})
+          clearInterval(timerId);
+          updateRepo()
+        }
+      });
+    }, 1000);
+  }
+
+  function updateRepo(){
+    const {fetchPromise, cleanup} = Server.getRepo()
+    fetchPromise.then(json =>{
+      setRepo(json)
+      dispatch({ type: "change", payload: 'all' })
+    });
+    return cleanup
+  }
 
   function formatWord( word ){
     return word.substring(0,3).toUpperCase();
@@ -121,7 +145,7 @@ export const Menu = (props) => {
                     dispatchApp({ type: "setServerStatus" , payload:{ msg:'Changes', status:'warning'}})
                   }
                   else{
-                    console.log('Action not possible')
+                    // console.log('Action not possible') // todo: toaster
                   }
                 }}
               >
@@ -155,12 +179,14 @@ export const Menu = (props) => {
           </Block>
           { Config.actions.ecco && 
             <Block>
-              <Button onClick={()=> { sendEcco()}} >
-                Send Radiation <IconEcco size={20} />
+              <Button onClick={()=> { 
+                sendEcco()
+                }} >
+                Send Ecco <IconEcco size={20} />
               </Button>
-              <Button dark onClick={()=> { sendEcco('stop')}} >
-                Stop Radiation
-              </Button>
+              {/* <Button dark onClick={()=> { sendEcco('stop')}} >
+                Stop Ecco
+              </Button> */}
             </Block>
           }
           <Block>

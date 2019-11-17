@@ -5,14 +5,11 @@ import Server from '../../helpers/server'
 import modalService from '../../helpers/modalService'
 import AppContext from '../../helpers/contexts/App.context'
 import {getContext} from '../../helpers/contexts/Repository.context'
-
 import { modifyItem, deleteItem, getParents, getChildren } from '../../helpers/repositoryService/repositoryService'
-
 import Panel from '../panel/panel'
+
 import {Conector} from './conector'
-
 import {  NodeWrapper, Box, BoxCol, Sticker, Dotted, Li } from './node.styles'
-
 
 export const Node = ({ type, label, progress, id, }) => {
   
@@ -21,12 +18,15 @@ export const Node = ({ type, label, progress, id, }) => {
 
   function mappProgress( progStr ){
     switch( progStr ){
-      case '0':
-        return 'P'    
-      case '1':
+      case 'created':
         return 'C'    
-      case '2':
+      case 'imports':
         return 'CI'    
+      case 'imports-error':
+        return 'CIe'    
+      default:
+      case 'planned':
+        return 'P'    
     }
   }
   
@@ -97,6 +97,10 @@ export const Node = ({ type, label, progress, id, }) => {
   useLayoutEffect(() => {
     setIsSelected( state.selectedNodeId == id )
   }, [state.selectedNodeId]);
+ 
+  useLayoutEffect(() => {
+    setNodeProgress( mappProgress(progress) )
+  }, [progress]);
 
   useLayoutEffect(() => {
     setIsSelected( state.selectedNodeId == id )
@@ -162,22 +166,18 @@ export const Node = ({ type, label, progress, id, }) => {
       config:'modify', 
       action:()=>{ 
         dispatchApp({ type: "setServerStatus" , payload:{ msg:'Creating', status:'loading'}})
-
         function callBack(){
-          console.log('CALLBACK ')
           setTimeout( 
             () => dispatchApp({ type: "setServerStatus" , payload:{ msg:'Created', status:'success'}}),
             100)
         }
-        
         const {fetchPromise, cleanup} = Server.generateItem( type, label, callBack() )
         fetchPromise.then(json =>{
-          console.log(json)
+          // console.log(json)
         });
       }
     },
   ]
-
 
 
   return (
@@ -191,7 +191,9 @@ export const Node = ({ type, label, progress, id, }) => {
       <Box isSelected={isSelected} >
         <BoxCol 
           status={getStatus()} 
-          onClick={ ()=>selectNode()}>
+          onClick={ ()=>selectNode()}
+          title={id}
+          >
           {label}
         </BoxCol>
         <BoxCol>

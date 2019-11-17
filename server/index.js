@@ -14,6 +14,7 @@ const pathTarget = path.join(serverDir, file_name)
 
 const ecco = require( serverDir + '/ecco');
 
+
 const PORT = process.env.PORT || 8080
 
 app.use(helmet.noSniff()) // Sets "X-Content-Type-Options: nosniff".
@@ -81,6 +82,11 @@ app.get('/ecco', function (req, res) {
     if( ecco.getStatus() !== 'run' ){
         ecco.run();
     }
+    let respObj = {process:'ecco', status: ecco.getStatus()};
+    res.json(respObj)
+});
+
+app.get('/ecco-status', function (req, res) {
     let respObj = {process:'ecco', status: ecco.getStatus()};
     res.json(respObj)
 });

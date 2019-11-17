@@ -16,13 +16,10 @@ let initialState = {
 let reducer = (state, action) => {
   switch (action.type) {
     case "change":
-      console.log('change')
       return { ...state, changed: { flag:true, type: action.payload } }
     case "updated":
-      console.log('updated')
       return { ...state, changed: { flag:false, type: null } }
     case "reset":
-      console.log('reset')
       return { ...initialState }
     case "setSelectedNodeId":
       return { ...state, selectedNodeId: action.payload }
