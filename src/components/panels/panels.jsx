@@ -32,7 +32,7 @@ export const Panels = (props) => {
   }, []);
 
   function modalOnClose (){
-    console.log('close modal callback')
+    // console.log('close modal callback')
   }
   
   return(

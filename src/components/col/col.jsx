@@ -1,14 +1,11 @@
 import React, {useContext, useState, useLayoutEffect } from "react";
 
 import Config  from '../../config'
-
 import AppContext from '../../helpers/contexts/App.context'
 import {getContext} from '../../helpers/contexts/Repository.context'
-
 import modalService from '../../helpers/modalService'
 import { getRepo, addItem } from '../../helpers/repositoryService/repositoryService'
 import {Node} from '../node/node'
-
 import {Button} from '../button/button.styles'
 import IconAdd from '../icon/icon-add'
 
@@ -16,7 +13,6 @@ import {ColWrapper, ColHeader, ColContent} from './col.styles'
 
 function getItemsByType( _type ){
   const repo = getRepo() 
-  console.log( _type, repo )
   return repo.items.filter( item => item.type === _type)
 }
 
@@ -26,24 +22,21 @@ export const Col = (props) => {
   const { dispatchApp } = useContext( AppContext )
 
   const [items, setItems] = useState( getItemsByType( props.atomicType ) )
-
  
   function componentOnSubmit ( modalData ){
-    console.log('submit modal callback', modalData )
     const addedItemId = addItem( props.atomicType , modalData.componentName )
+    console.log( props.atomicType )
     dispatch({ type: "change" , payload: props.atomicType})
-    dispatchApp({ type: "setServerStatus" , payload:{ msg:'Changes', status:'warning'}})
+    // dispatchApp({ type: "setServerStatus" , payload:{ msg:'Changes', status:'warning'}})
   }
 
   useLayoutEffect(() => {
-    if( state.changed.type == props.atomicType || state.changed.type == 'all' ){
-      console.log("CHANGE runs", props.atomicType)
+    if( state.changed.type == props.atomicType || state.changed.type === 'all' ){
       const filteredItems = getItemsByType( props.atomicType )
       setItems( filteredItems )
       dispatch({ type: "updated"})
     }
   }, [state.changed.type])
-
  
   return (
     <>

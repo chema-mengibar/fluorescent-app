@@ -52,7 +52,6 @@ export const Separator = styled.span`
 `
 
 function mapStatusToColor( status ){
-  console.log( status )
   if( status === 'loading'){
     return theme.accent.default.base
   }

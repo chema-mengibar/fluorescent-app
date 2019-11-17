@@ -144,16 +144,50 @@ With this function it is possible for example to visualize:
 ### Server Action Status
 <img src="docs/assets/fluorescent-app_ui-server.gif" />  
 
-### Directory Parser
+### Component Generator and Monitor
 **(see Server-Client Communication)**   
-This function allows to observe which components have been physically created
-(folder and script files) in the "ROOT /src/components" directory of the project where fluorescent-app is used.  
+This function allows to create physically components (folder and script files) and observe the status between connexions and imports in script-files in the "ROOT/src/components" directory of the project where fluorescent-app is used.  
 
-<img src="docs/assets/fluorescent-app_ui-radiation.jpg" />  
+#### Step 1 - Planning your components
+Start planning which components you will need.  <br /> Initially there are no connections and all elements have the " P " label of "planned".  
+
+<img src="docs/assets/fluorescent-app_generator-monitor_step-planning.jpg" width="100%"/>
+
+#### Step 2 - Create directory and component code files
+In the panel is shown the option to "create element".  
+So, a directory will be created and the files defined in the plop-templates
+
+<img src="docs/assets/fluorescent-app_generator-monitor_step-create-plop.jpg" width="100%"/>
+
+#### Step 3 - Monitoring the components status
+Run the "ecco" function to update the status of the elements.   
+The found elements receive the "C" label of "created".
+
+<img src="docs/assets/fluorescent-app_generator-monitor_step-created.jpg" width="100%"/>
+
+#### Step 4 - Create connections
+Now we can create the connections between elements and run the function "ecco" again.  
+If the parent component does not define imports of child elements as connections, the "CIe" label of "created but with import errors" will be displayed.
+
+<img src="docs/assets/fluorescent-app_generator-monitor_step-edit-imports.jpg" width="100%"/>
+
+#### Step 5 - Update imports in code files
+Add imports in any component file in the code editor
+
+<img src="docs/assets/fluorescent-app_generator-monitor_step-imports.jpg" width="100%"/>
+
+#### Step 6 - Update imports status flag
+If we run the "ecco" function again and all imports of the component are satisfied,  
+the label will be updated to "CI" of "created imports".
+
+<img src="docs/assets/fluorescent-app_generator-monitor_step-ci.jpg" width="100%"/>
+
+
 
 ## Sources
 
 ### Icons
+- https://www.flaticon.com/authors/dave-gandy
 - https://www.flaticon.com/authors/dave-gandy
 - https://www.flaticon.com/authors/freepik
 - https://www.flaticon.com/authors/vaadin

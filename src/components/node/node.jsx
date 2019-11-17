@@ -5,14 +5,11 @@ import Server from '../../helpers/server'
 import modalService from '../../helpers/modalService'
 import AppContext from '../../helpers/contexts/App.context'
 import {getContext} from '../../helpers/contexts/Repository.context'
-
 import { modifyItem, deleteItem, getParents, getChildren } from '../../helpers/repositoryService/repositoryService'
-
 import Panel from '../panel/panel'
+
 import {Conector} from './conector'
-
 import {  NodeWrapper, Box, BoxCol, Sticker, Dotted, Li } from './node.styles'
-
 
 export const Node = ({ type, label, progress, id, }) => {
   
@@ -21,14 +18,15 @@ export const Node = ({ type, label, progress, id, }) => {
 
   function mappProgress( progStr ){
     switch( progStr ){
-      case 'planned':
-        return 'P'    
       case 'created':
         return 'C'    
       case 'imports':
         return 'CI'    
       case 'imports-error':
         return 'CIe'    
+      default:
+      case 'planned':
+        return 'P'    
     }
   }
   

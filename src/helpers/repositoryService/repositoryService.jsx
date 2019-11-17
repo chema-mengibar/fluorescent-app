@@ -21,7 +21,7 @@ export const addItem = ( _type, _label, _dispatch) => {
   const newItem = {
     type: _type,
     label: _label,
-    progress: "0",
+    progress: "planned",
     id: generateId( _type )
   }
   repository.items.push(newItem)
@@ -110,7 +110,6 @@ export function connectFromTo( fromNode, toNode){
 }
 
 export function disconnecToFrom( toId, fromId ){
-  console.log( toId, fromId  )
   const toNode = getTreeItemById( toId )
   const filteredChildren = toNode.children.filter( childId => childId != fromId )
 

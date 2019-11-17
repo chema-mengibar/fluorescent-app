@@ -1,7 +1,6 @@
 import React from 'react'
 
 const AppContext = React.createContext()
-console.log('Init AppContext')
 
 let initialState = {
   name: '',
@@ -22,15 +21,12 @@ let reducer = (state, action) => {
     case "rename":
       return { ...state, name: action.payload }
     case "setServerStatus":
-      console.log(  action.payload )
       return { ...state, server: { msg: action.payload.msg, status: action.payload.status } }
     case "openDialog":
       return { ...state, dialogIsOpen: true }
     case "closeDialog":
-      console.log("CLOSE")
       return { ...state, dialogIsOpen: false }
     case "setDialogName":
-      console.log('dialog name', action.payload )
       return { ...state, dialogName: action.payload  }
     case "resetDialog":
       return { ...state, dialogIsOpen: false, dialogName:null }

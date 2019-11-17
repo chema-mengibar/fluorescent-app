@@ -145,7 +145,7 @@ export const Menu = (props) => {
                     dispatchApp({ type: "setServerStatus" , payload:{ msg:'Changes', status:'warning'}})
                   }
                   else{
-                    console.log('Action not possible')
+                    // console.log('Action not possible') // todo: toaster
                   }
                 }}
               >

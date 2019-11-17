@@ -18,7 +18,7 @@ export const ModalInfo = ({
       <P> https://github.com/chema-mengibar </P>
       <Hr />
       <H1>Controls</H1>
-      <P> Command Panel [ Ctrl + P ] </P>
+      <P> Command Panel [ Space Bar ] </P>
       <P> Close Panel [ Esc ] </P>
 
     </>
