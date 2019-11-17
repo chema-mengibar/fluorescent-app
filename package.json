@@ -9,7 +9,7 @@
     "start": "webpack-dev-server --port 3000 --mode development --config webpack.config.js"
   },
   "author": "chema-mengibar",
-  "license": "ISC",
+  "license": "MIT",
   "repository": {
     "type": "git",
     "url": "https://github.com/chema-mengibar/fluorescent-app.git"
