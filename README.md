@@ -41,6 +41,8 @@ npm run build
 npm run serve
 ```
 
+Open `localhost:8080` in your internet browser  
+
 ## Development
 To continue with the development of the tool itself:  
 1. Open a terminal and execute the command: `npm run serve`
@@ -182,13 +184,11 @@ the label will be updated to "CI" of "created imports".
 
 <img src="docs/assets/fluorescent-app_generator-monitor_step-ci.jpg" width="100%"/>
 
-
-
 ## Sources
 
 ### Icons
-- https://www.flaticon.com/authors/dave-gandy
-- https://www.flaticon.com/authors/dave-gandy
-- https://www.flaticon.com/authors/freepik
-- https://www.flaticon.com/authors/vaadin
-- https://www.flaticon.com/authors/google
+- www.flaticon.com/authors/dave-gandy
+- www.flaticon.com/authors/dave-gandy
+- www.flaticon.com/authors/freepik
+- www.flaticon.com/authors/vaadin
+- www.flaticon.com/authors/google

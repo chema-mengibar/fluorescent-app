@@ -8,8 +8,8 @@
 - [ ] Multi-generate self and children components (CG-005)
 
 ## Directory parser
-- [@] Nodes status flag (DP-001)
-- [ ] Parser and status object (DP-002)
+- [x] Nodes status flag (DP-001)
+- [x] Parser and status object (DP-002)
 
 ## Design
 - [ ] Add dynamic logo to top-bar  (D-001)
