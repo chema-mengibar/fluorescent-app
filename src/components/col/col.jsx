@@ -6,7 +6,7 @@ import AppContext from '../../helpers/contexts/App.context'
 import {getContext} from '../../helpers/contexts/Repository.context'
 
 import modalService from '../../helpers/modalService'
-import { repository, addItem } from '../../helpers/repositoryService/repositoryService'
+import { getRepo, addItem } from '../../helpers/repositoryService/repositoryService'
 import {Node} from '../node/node'
 
 import {Button} from '../button/button.styles'
@@ -15,7 +15,9 @@ import IconAdd from '../icon/icon-add'
 import {ColWrapper, ColHeader, ColContent} from './col.styles'
 
 function getItemsByType( _type ){
-  return repository.items.filter( item => item.type === _type)
+  const repo = getRepo() 
+  console.log( _type, repo )
+  return repo.items.filter( item => item.type === _type)
 }
 
 export const Col = (props) => {
@@ -34,14 +36,15 @@ export const Col = (props) => {
   }
 
   useLayoutEffect(() => {
-    if( state.changed.type == props.atomicType ){
+    if( state.changed.type == props.atomicType || state.changed.type == 'all' ){
       console.log("CHANGE runs", props.atomicType)
       const filteredItems = getItemsByType( props.atomicType )
       setItems( filteredItems )
       dispatch({ type: "updated"})
     }
   }, [state.changed.type])
-  
+
+ 
   return (
     <>
       <ColWrapper>

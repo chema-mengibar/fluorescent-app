@@ -12,7 +12,7 @@ import {setRepo} from './helpers/repositoryService/repositoryService'
 import {GridHeader, GridPanel} from './components/grid/grid'
 import {Menu} from './components/menu/menu'
 import {Col} from './components/col/col'
-import {Keys} from './components/keys/keys'
+import {Panels} from './components/panels/panels'
 
 
 const App = ( props ) => {
@@ -55,7 +55,7 @@ ReactDOM.render(
   <RepositoryContextProvider>
     <AppContextProvider>
       <App />
-      <Keys />
+      <Panels />
     </AppContextProvider>
   </RepositoryContextProvider>,
   document.getElementById("app")

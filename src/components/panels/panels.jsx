@@ -7,7 +7,7 @@ import {ModalCmd} from '../modal/partial_modal-cmd'
 import {ModalInfo} from '../modal/partial_modal-info'
 import {ModalComponentName} from '../modal/partial_modal-component-name'
 
-export const Keys = (props) => {
+export const Panels = (props) => {
 
   const { dispatchApp } = useContext( AppContext )
 

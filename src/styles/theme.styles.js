@@ -45,5 +45,8 @@ export const theme = {
     secondary:{
       base:'#2C7FFF',
     },
+    error:{
+      base:'#ff7c7c',
+    },
   }
 }

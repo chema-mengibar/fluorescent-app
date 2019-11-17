@@ -78,8 +78,8 @@ root
  |- repository.json
 ```
 
-### Actions
-It is possible to configure which actions are allowed in the application and show/hide the buttons.
+### Panel Menu Actions
+It is possible to configure in the application, which actions are allowed  and show/hide the buttons.
 ```
 actions:{
   save: false,
@@ -100,6 +100,26 @@ items:[
   },
   ...
 ```
+
+
+## Server-Client Communication
+
+<img src="docs/server-client_communication/server-client.jpg" width="500px"/>
+
+### Ecco
+It is a service that controls sub-processes that are executed on the server, like "monitor"
+
+### Plop
+It is a service that executes the plop script, allowing the physical creation of components.  
+**More info in** [plopjs.com](https://plopjs.com/)
+
+### Monitor
+It is a script that compares the schema and relation (parent/child) of the components with the physical structure and the "imports" in the project directory where the fluorescent application is used.
+
+With this function it is possible for example to visualize:
+- which components have been created
+- if the planned connections are consistent.
+
 
 ## UI Elements & Features
 
@@ -124,7 +144,11 @@ items:[
 ### Server Action Status
 <img src="docs/assets/fluorescent-app_ui-server.gif" />  
 
-### Directory Parser (not implemented)
+### Directory Parser
+**(see Server-Client Communication)**   
+This function allows to observe which components have been physically created
+(folder and script files) in the "ROOT /src/components" directory of the project where fluorescent-app is used.  
+
 <img src="docs/assets/fluorescent-app_ui-radiation.jpg" />  
 
 ## Sources

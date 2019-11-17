@@ -1,6 +1,6 @@
 const monitor = require( './monitor');
 
-let status = 'wait'; // wait, run, error
+let status = 'init'; // wait, run, error
 
 function run(){
   console.log( 'ecco run: monitor' );
@@ -14,6 +14,13 @@ function stop(){
 }
 
 function getStatus(){
+  console.log( 'monitor.status: ', monitor.status )
+  if( ['init','runs'].indexOf(monitor.status) > -1 ){
+
+  }
+  else{ //ready OR error
+    setStatus('stop');
+  }
   return status;
 }
 

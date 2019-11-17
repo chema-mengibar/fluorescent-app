@@ -1,28 +1,12 @@
 /*
-  Variables:
 
-  component name:
-    - how is the rule to name components
-    - node-label <-> component folder name
+  Item-progress status:
 
-  atomic-type folder name :
-    - if component-folder exist in folder
+  1- planned        : Component is just in fluorescent board
+  2- created        : Component if phisically created
+  3- imports        : Component is created and all children connections are in script-imports
+  4- imports-error  : Some connection(s) - imports are broken in script-files
 
-  list of children 
-    - if exist import line with child-component-name in code
-
-  
-  Neeeds: 
-
-  - get string conversion from node-label to component-name/folder
-  - read directories
-  - read content file
-  - parse import lines
-
-
-
-  folder-name =  {{dashCase name}}
-  component name = camelCase
 */
 
 "use strict";
@@ -34,6 +18,7 @@ const fs = require('fs');
 class Monitor {
 
   constructor( ) {
+    this.status = 'init'
     this.repoFileName = 'repository.json';
     this.reportsDir = path.join( __dirname, '')
     this.pathTarget = path.join(this.reportsDir, this.repoFileName);
@@ -56,12 +41,18 @@ class Monitor {
         function(w){return w[0].toUpperCase() + w.slice(1).toLowerCase();});
     }
 
-    // this.extension = '.tsx' // todo: configurable
-    // this.targetFiles = [ // todo: configurable
+    // todo: configurable
+    // this.extension = '.tsx' 
+    // this.targetFiles = [
     //   `index${this.extension}`,
     //   `styles${this.extension}`,
     //   `index${this.extension}`,
     // ]
+  }
+
+  updateRepo(){
+    let rawdata = fs.readFileSync( this.pathTarget);
+    this.repo = JSON.parse(rawdata);
   }
 
   getTreeItemById( id ){
@@ -88,6 +79,11 @@ class Monitor {
     return this;
   }
 
+  setStatus( status ){
+    this.status = status; //init, runs, ready, error
+    return this;
+  }
+
   modifyItemProgress = ( _id, _progress) => {
     const items = this.repo.items.map( (item)=> {
       if(item.id === _id ){
@@ -98,8 +94,9 @@ class Monitor {
     this.repo.items = [...items];
   }
 
-
   loop(){
+    this.updateRepo()
+    this.setStatus('runs')
     const progressReport = [];
     const importsReport = [];
 
@@ -124,23 +121,24 @@ class Monitor {
 
         // Read all files in component-folder
         fs.readdirSync(targetFolderPath).forEach( targetFile => {
-
+          console.log( 'targetFile', targetFile )
           // Read content of all the files
           let contents = fs.readFileSync( targetFolderPath + targetFile, 'utf8');
 
           //Parse if there is in the component files a import reference of the children
           childrenItemsIds.forEach( childId =>{
             const childItem = this.getItemById( childId );
-            const childComponentName =  this.pascalCase(childItem.label);
-            var re = new RegExp('import ' + childComponentName + ' from',"gm");
-            if( re.test(contents) ){
-              importsReportItem[childId] = true
+            if( childItem ){
+              const childComponentName =  childItem.label;
+              var re = new RegExp('import ' + childComponentName + ' from',"gm");
+              if( re.test(contents) ){
+                importsReportItem[childId] = true
+              }
             }
           } )
         });
 
         const childrenImports = Object.keys(importsReportItem).map( childId =>{
-          const childItem = this.getItemById( childId );
           return { componentId: nodeItem.id, childId: childId, connectImported: importsReportItem[childId]  }
         })
 
@@ -148,9 +146,6 @@ class Monitor {
       }
       catch(error){  
         console.error(  nodeItem.label, '>> error >>', error.code, error.path )
-        //  if( error.code === 'ENOENT' ){
-        //   flag = 'created_error';
-        //  }
       }
 
       this.modifyItemProgress( nodeItem.id, flag );
@@ -159,8 +154,48 @@ class Monitor {
 
     this.report.progress = progressReport;
     this.report.imports = importsReport;
-    this.saveRepo().saveReport()
+
+    this.processItemsStatus()
+    
     return this;
+  }
+
+  processItemsStatus(){
+    // this.report.progress
+    // this.report.imports
+    // this.repo
+
+    /*
+      count imports pro item
+      set item progress
+        if all are true than CI
+        else CIe
+      save repo
+      save report
+      change status
+    */
+
+    const imports = {}
+    this.report.imports.forEach( importItem =>{
+      if( Object.keys(imports).indexOf(importItem.componentId) > -1 ){
+        if( !importItem.connectImported ){
+          imports[ importItem.componentId ] = false
+        }
+      }
+      else{
+        imports[ importItem.componentId ] = true
+      }
+    })
+
+    this.repo.items.forEach( nodeItem =>{ 
+      if( Object.keys(imports).indexOf(nodeItem.id) > -1 ){
+        if( nodeItem.progress === 'created'){
+          nodeItem.progress = imports[nodeItem.id] ? 'imports' : 'imports-error';
+        }
+      }
+    } )
+    
+    this.saveRepo().saveReport().setStatus('ready')
   }
 }
 
@@ -169,7 +204,10 @@ const monitor = new Monitor()
 module.exports = {
   run: ()=>{
     console.log("Monitor is running")
-    monitor.loop()
+    monitor.loop();
+  },
+  get status (){
+    return monitor.status;
   }
 }
 
@@ -177,9 +215,7 @@ module.exports = {
 
 WARNING
 
-
   Line beginning  commented import
   var re = new RegExp('^import ' + childComponentName + ' from',"gm");
-
 
 */

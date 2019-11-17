@@ -86,6 +86,11 @@ app.get('/ecco', function (req, res) {
     res.json(respObj)
 });
 
+app.get('/ecco-status', function (req, res) {
+    let respObj = {process:'ecco', status: ecco.getStatus()};
+    res.json(respObj)
+});
+
 app.get('/ecco-stop', function (req, res) {
     console.log('REQ:GET ecco-stop')
     if( ecco.getStatus() === 'run' ){

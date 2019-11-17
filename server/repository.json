@@ -3,7 +3,7 @@
     {
       "type": "atom",
       "label": "Button1",
-      "progress": "planned",
+      "progress": "created",
       "id": "node-1572445382711"
     },
     {
@@ -15,23 +15,16 @@
     {
       "type": "molecule",
       "label": "Form",
-      "progress": "created",
+      "progress": "imports",
       "id": "node-1572445382713"
-    },
-    {
-      "type": "atom",
-      "label": "Cactus1",
-      "id": "node-1573810024523",
-      "progress": "created"
     }
   ],
   "tree": [
     {
       "id": "node-1572445382713",
       "children": [
-        "node-1572445382712",
         "node-1572445382711",
-        "node-1573810024523"
+        "node-1572445382712"
       ]
     }
   ]

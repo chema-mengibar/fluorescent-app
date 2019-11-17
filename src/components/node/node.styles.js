@@ -51,7 +51,7 @@ export const BoxCol = styled.div`
   }
 `
 
-function mappProgressColor( progKey ){
+function mappProgressToColor( progKey ){
   switch( progKey ){
     case 'P':
       return theme.complement.default.base   
@@ -59,6 +59,8 @@ function mappProgressColor( progKey ){
       return theme.complement.primary.base    
     case 'CI':
       return theme.complement.secondary.base    
+    case 'CIe':
+      return theme.complement.error.base    
   }
 }
 
@@ -66,12 +68,13 @@ export const Sticker = styled.div`
   min-width:30px;
   padding:2px;
   border-radius: 5px;
-  /* background-color: ${ ({progressKey})=> colorize.hexToRgbA( mappProgressColor(progressKey), '.5') }; */
+  /* background-color: ${ ({progressKey})=> colorize.hexToRgbA( mappProgressToColor(progressKey), '.5') }; */
   /* color: ${colorize.hexToRgbA('#ffffff', '.5') }; */
-  border: 1px solid ${ ({progressKey})=> colorize.hexToRgbA( mappProgressColor(progressKey), '.5') };
-  color: ${ ({progressKey})=> colorize.hexToRgbA( mappProgressColor(progressKey), '.5') };
+  border: 1px solid ${ ({progressKey})=> colorize.hexToRgbA( mappProgressToColor(progressKey), '.5') };
+  color: ${ ({progressKey})=> colorize.hexToRgbA( mappProgressToColor(progressKey), '.5') };
   text-align:center;
   font-size:10px;
+  transition: all 0.5s ease;
 `
 
 export const Dotted = styled.div`

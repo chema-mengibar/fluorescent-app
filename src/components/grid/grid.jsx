@@ -19,5 +19,6 @@ export const GridPanel = styled.div`
   max-width: 100%;
   width: 100%;
   clip-path: inset( -100vw -100vw -100vw 0 );
+  color:white;
 `
 

@@ -2,7 +2,7 @@
   "progress": [
     {
       "id": "node-1572445382711",
-      "progress": "planned"
+      "progress": "created"
     },
     {
       "id": "node-1572445382712",
@@ -11,18 +11,9 @@
     {
       "id": "node-1572445382713",
       "progress": "created"
-    },
-    {
-      "id": "node-1573810024523",
-      "progress": "created"
     }
   ],
   "imports": [
-    {
-      "componentId": "node-1572445382713",
-      "childId": "node-1572445382712",
-      "connectImported": true
-    },
     {
       "componentId": "node-1572445382713",
       "childId": "node-1572445382711",
@@ -30,8 +21,8 @@
     },
     {
       "componentId": "node-1572445382713",
-      "childId": "node-1573810024523",
-      "connectImported": false
+      "childId": "node-1572445382712",
+      "connectImported": true
     }
   ]
 }

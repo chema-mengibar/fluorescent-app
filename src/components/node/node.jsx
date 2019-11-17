@@ -27,6 +27,8 @@ export const Node = ({ type, label, progress, id, }) => {
         return 'C'    
       case 'imports':
         return 'CI'    
+      case 'imports-error':
+        return 'CIe'    
     }
   }
   
@@ -97,6 +99,10 @@ export const Node = ({ type, label, progress, id, }) => {
   useLayoutEffect(() => {
     setIsSelected( state.selectedNodeId == id )
   }, [state.selectedNodeId]);
+ 
+  useLayoutEffect(() => {
+    setNodeProgress( mappProgress(progress) )
+  }, [progress]);
 
   useLayoutEffect(() => {
     setIsSelected( state.selectedNodeId == id )
@@ -162,22 +168,18 @@ export const Node = ({ type, label, progress, id, }) => {
       config:'modify', 
       action:()=>{ 
         dispatchApp({ type: "setServerStatus" , payload:{ msg:'Creating', status:'loading'}})
-
         function callBack(){
-          console.log('CALLBACK ')
           setTimeout( 
             () => dispatchApp({ type: "setServerStatus" , payload:{ msg:'Created', status:'success'}}),
             100)
         }
-        
         const {fetchPromise, cleanup} = Server.generateItem( type, label, callBack() )
         fetchPromise.then(json =>{
-          console.log(json)
+          // console.log(json)
         });
       }
     },
   ]
-
 
 
   return (
