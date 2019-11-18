@@ -103,6 +103,9 @@ items:[
   ...
 ```
 
+### Plop
+Select the file extension type: tsx or jsx in `plopfile.js`
+
 
 ## Server-Client Communication
 
