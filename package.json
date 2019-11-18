@@ -6,7 +6,9 @@
     "plop": "plop",
     "build": "webpack",
     "serve": "node ./server/index.js",
-    "start": "webpack-dev-server --port 3000 --mode development --config webpack.config.js"
+    "start": "webpack-dev-server --port 3000 --mode development --config webpack.config.js",
+    "test": "jest",
+    "test-w": "jest --watch"
   },
   "author": "chema-mengibar",
   "license": "MIT",

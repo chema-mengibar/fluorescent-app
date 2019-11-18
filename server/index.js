@@ -34,9 +34,7 @@ app.get('/repo', function (req, res) {
     res.json(jsonData)
 });
 
-function cleanNameToFile( s ){
-    return  s.replace(/[^a-z0-9]/gi, '-').toLowerCase();
-}
+
 
 function execShellCommand(cmd) {
     return new Promise((resolve, reject) => {
@@ -69,8 +67,8 @@ app.post('/plop', function (req, res) {
             break;
     } 
 
-    const cleanedName = cleanNameToFile( objectData.name );
-    const cmdStr = `plop component -- --name "${cleanedName}" --type "${mappedType}"`
+    const componentName = objectData.name;
+    const cmdStr = `plop component -- --name "${componentName}" --type "${mappedType}"`
     execShellCommand( cmdStr ).then(
         (success)=>{ res.sendStatus(201) },
         (error)=>{ res.sendStatus(501) }
