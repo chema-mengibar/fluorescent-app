@@ -25,7 +25,6 @@ export const Col = (props) => {
  
   function componentOnSubmit ( modalData ){
     const addedItemId = addItem( props.atomicType , modalData.componentName )
-    console.log( props.atomicType )
     dispatch({ type: "change" , payload: props.atomicType})
     dispatchApp({ type: "setServerStatus" , payload:{ msg:'Changes', status:'warning'}})
   }

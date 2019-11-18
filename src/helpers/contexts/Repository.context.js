@@ -1,7 +1,6 @@
 import React from 'react'
 
 const RepositoryContext = React.createContext()
-console.log('Init RepositoryContext')
 
 let initialState = {
   changed: { flag:false, type:null },
