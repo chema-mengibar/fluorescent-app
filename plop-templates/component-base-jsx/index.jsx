@@ -5,12 +5,7 @@ import {
 } from "./{{> my-name }}.styles";
 
 
-export interface {{> MyName }}Props {
-  id?: string;
-}
-
-
-const {{> MyName }} = (props:{{> MyName }}Props): ReactElement => {
+const {{> MyName }} = (props) => {
   return (
     <{{> MyName }}Styled>
 
