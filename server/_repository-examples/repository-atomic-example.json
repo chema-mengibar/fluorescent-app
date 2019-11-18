@@ -3,127 +3,127 @@
     {
       "type": "atom",
       "label": "Icon",
-      "progress": "0",
+      "progress": "planned",
       "id": "node-1572687587879"
     },
     {
       "type": "atom",
       "label": "Button",
-      "progress": "0",
+      "progress": "planned",
       "id": "node-1572687595804"
     },
     {
       "type": "atom",
       "label": "Link",
-      "progress": "0",
+      "progress": "planned",
       "id": "node-1572687605584"
     },
     {
       "type": "atom",
       "label": "Description-text",
-      "progress": "0",
+      "progress": "planned",
       "id": "node-1572687618418"
     },
     {
       "type": "atom",
       "label": "User-thumbnail",
-      "progress": "0",
+      "progress": "planned",
       "id": "node-1572687634437"
     },
     {
       "type": "atom",
       "label": "Photo",
-      "progress": "0",
+      "progress": "planned",
       "id": "node-1572687647132"
     },
     {
       "type": "molecule",
       "label": "Top-menu",
-      "progress": "0",
+      "progress": "planned",
       "id": "node-1572687684290"
     },
     {
       "type": "atom",
       "label": "Section-Title",
-      "progress": "0",
+      "progress": "planned",
       "id": "node-1572687695011"
     },
     {
       "type": "molecule",
       "label": "User-status",
-      "progress": "0",
+      "progress": "planned",
       "id": "node-1572687708908"
     },
     {
       "type": "atom",
       "label": "Update-data",
-      "progress": "0",
+      "progress": "planned",
       "id": "node-1572687723881"
     },
     {
       "type": "atom",
       "label": "User-name",
-      "progress": "0",
+      "progress": "planned",
       "id": "node-1572687737398"
     },
     {
       "type": "molecule",
       "label": "Post-Box",
-      "progress": "0",
+      "progress": "planned",
       "id": "node-1572687747914"
     },
     {
       "type": "molecule",
       "label": "Social-menu",
-      "progress": "0",
+      "progress": "planned",
       "id": "node-1572687758836"
     },
     {
       "type": "molecule",
       "label": "Likes-Box",
-      "progress": "0",
+      "progress": "planned",
       "id": "node-1572687768394"
     },
     {
       "type": "molecule",
       "label": "Main-Menu",
-      "progress": "0",
+      "progress": "planned",
       "id": "node-1572687785375"
     },
     {
       "type": "organism",
       "label": "User-Post",
-      "progress": "0",
+      "progress": "planned",
       "id": "node-1572687819372"
     },
     {
       "type": "atom",
       "label": "Logo",
-      "progress": "0",
+      "progress": "planned",
       "id": "node-1572687824379"
     },
     {
       "type": "organism",
       "label": "Top-Nav",
-      "progress": "0",
+      "progress": "planned",
       "id": "node-1572687833910"
     },
     {
       "type": "organism",
       "label": "Footer-Nav",
-      "progress": "0",
+      "progress": "planned",
       "id": "node-1572687848079"
     },
     {
       "type": "page",
       "label": "Post",
-      "progress": "0",
+      "progress": "planned",
       "id": "node-1572687856019"
     },
     {
       "type": "atom",
       "label": "Text small",
-      "progress": "0",
+      "progress": "planned",
       "id": "node-1572688119899"
     }
   ],

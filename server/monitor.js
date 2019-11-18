@@ -13,7 +13,7 @@
 
 const path = require('path');
 const fs = require('fs');
-
+const namecase = require('../helper_modules/namecase');
 
 class Monitor {
 
@@ -32,14 +32,9 @@ class Monitor {
 
     this.srcCompDir = path.join(this.reportsDir, '../../src/components/'); // todo: configurable
 
-    this.camelCase = require('lodash/camelCase');
-    this.dashCase = require('lodash/kebabCase');
-
-    this.pascalCase = (s)=> { //todo: unify method in module
-      let str = this.camelCase(s)
-      return str.replace(/\w+/g,
-        function(w){return w[0].toUpperCase() + w.slice(1).toLowerCase();});
-    }
+    this.camelCase = namecase.camelCase;
+    this.dashCase = namecase.dashCase;
+    this.pascalCase = namecase.pascalCase;
 
     // todo: configurable
     // this.extension = '.tsx' 

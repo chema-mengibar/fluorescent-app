@@ -4,14 +4,7 @@
 
 */
 
-const cDashCase = require('lodash/kebabCase');
-const cCamelCase = require('lodash/camelCase');
-
-const cPascalCase = (s)=> { //todo: unify method in module
-  let str = cCamelCase(s)
-  return str.replace(/\w+/g,
-    function(w){ return w[0].toUpperCase() + w.slice(1).toLowerCase(); });
-}
+const namecase = require('./helper_modules/namecase');
 
 const srcComponentDir = '../src/components/'
 
@@ -19,20 +12,17 @@ module.exports = function (plop) {
 
 
   plop.setHelper('cDashCase', function (text) {
-      return cDashCase(text);
+    return namecase.dashCase(text);
   });
 
   plop.setHelper('cCamelCase', function (text) {
-      return cCamelCase(text);
+    return namecase.camelCase(text);
   });
 
   plop.setHelper('cPascalCase', function (text) {
-      return cPascalCase(text);
+    return namecase.pascalCase(text);
   });
 
-  plop.setHelper('rename', function (text) {
-    return text.toUpperCase();
-  });
 
   plop.setPartial('myName', '{{cCamelCase name}}');
   plop.setPartial('my-name', '{{cDashCase name}}');
