@@ -2,18 +2,18 @@
   "items": [{
     "type": "atom",
     "label": "Button1",
-    "progress": "0",
-    "id": "node-1572445382711"
+    "id": "node-1572445382711",
+    "progress":"planned"
   }, {
     "type": "atom",
     "label": "Input",
-    "progress": "1",
-    "id": "node-1572445382712"
+    "id": "node-1572445382712",
+    "progress":"planned"
   }, {
     "type": "molecule",
     "label": "Form",
-    "progress": "2",
-    "id": "node-1572445382713"
+    "id": "node-1572445382713",
+    "progress":"planned"
   }],
   "tree": [{
     "id": "node-1572445382713",
