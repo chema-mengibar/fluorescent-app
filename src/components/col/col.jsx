@@ -27,7 +27,7 @@ export const Col = (props) => {
     const addedItemId = addItem( props.atomicType , modalData.componentName )
     console.log( props.atomicType )
     dispatch({ type: "change" , payload: props.atomicType})
-    // dispatchApp({ type: "setServerStatus" , payload:{ msg:'Changes', status:'warning'}})
+    dispatchApp({ type: "setServerStatus" , payload:{ msg:'Changes', status:'warning'}})
   }
 
   useLayoutEffect(() => {
