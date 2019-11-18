@@ -1,15 +1,27 @@
 /*
+Configuration:
+
+ useTs: boolean , set tsx or jsx file extension and template files to use
+ srcComponentDir: strg , target directory in project to create the components
+
+
+More About Plop:
+
   https://www.npmjs.com/package/plop
   https://plopjs.com/documentation/
 
 */
 
-const namecase = require('./helper_modules/namecase');
-
+const useTs = false;
 const srcComponentDir = '../src/components/'
 
-module.exports = function (plop) {
 
+// --------------------------------------------------------------------------------------------------
+
+const namecase = require('./helper_modules/namecase');
+const extFiles = useTs ? 'tsx' : 'jsx';
+
+module.exports = function (plop) {
 
   plop.setHelper('cDashCase', function (text) {
     return namecase.dashCase(text);
@@ -27,7 +39,6 @@ module.exports = function (plop) {
   plop.setPartial('myName', '{{cCamelCase name}}');
   plop.setPartial('my-name', '{{cDashCase name}}');
   plop.setPartial('MyName', '{{cPascalCase name}}');
-
 
   plop.setGenerator('component', {
     description: 'basic component',
@@ -52,32 +63,24 @@ module.exports = function (plop) {
     actions: [
       {
         type: 'add',
-        path: srcComponentDir + '{{type}}/{{cDashCase name}}/index.tsx',
-        templateFile: 'plop-templates/component-base-ts/index.tsx'
+        path: srcComponentDir + '{{type}}/{{cDashCase name}}/index.' + extFiles,
+        templateFile: 'plop-templates/component-base-' +  extFiles + '/index.' + extFiles
       },
       {
         type: 'add',
-        path: srcComponentDir + '{{type}}/{{cDashCase name}}/{{cDashCase name}}.mocks.tsx',
-        templateFile: 'plop-templates/component-base-ts/mocks.tsx'
+        path: srcComponentDir + '{{type}}/{{cDashCase name}}/{{cDashCase name}}.mocks.' + extFiles,
+        templateFile: 'plop-templates/component-base-' +  extFiles + '/mocks.' + extFiles
       },
       {
         type: 'add',
-        path: srcComponentDir + '{{type}}/{{cDashCase name}}/{{cDashCase name}}.stories.tsx',
-        templateFile: 'plop-templates/component-base-ts/stories.tsx'
+        path: srcComponentDir + '{{type}}/{{cDashCase name}}/{{cDashCase name}}.stories.' + extFiles,
+        templateFile: 'plop-templates/component-base-' +  extFiles + '/stories.' + extFiles
       },
       {
         type: 'add',
-        path: srcComponentDir + '{{type}}/{{cDashCase name}}/{{cDashCase name}}.styles.tsx',
-        templateFile: 'plop-templates/component-base-ts/styles.tsx'
+        path: srcComponentDir + '{{type}}/{{cDashCase name}}/{{cDashCase name}}.styles.' + extFiles,
+        templateFile: 'plop-templates/component-base-' +  extFiles + '/styles.' + extFiles
       }
     ],
   });
 };
-
-/*
-     {
-        type: 'add',
-        path: 'src/components/{{type}}/{{camelCase name}}.tsx',
-        templateFile: 'plop-templates/component-base/index.tsx'
-      }
-*/
