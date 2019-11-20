@@ -45,7 +45,6 @@ export const Node = ({ type, label, progress, id, }) => {
 
   function recursionTree(){
 
-    console.log( generation )
     // Direction left: children
     const gen1ChildrenIds = getChildren( id )
     setHasChildren( gen1ChildrenIds.length > 0 )
@@ -102,10 +101,18 @@ export const Node = ({ type, label, progress, id, }) => {
     setIsSelected( state.selectedNodeId == id )
   }, [state.selectedNodeId]);
  
+
   useLayoutEffect(() => {
     setGeneration(stateApp.generation )
-
   }, [stateApp.generation]);
+
+  useLayoutEffect(() => {
+    if( state.selectedNodeId === id ){
+      recursionTree()
+    }
+  }, [generation]);
+
+
  
   useLayoutEffect(() => {
     setNodeProgress( mappProgress(progress) )

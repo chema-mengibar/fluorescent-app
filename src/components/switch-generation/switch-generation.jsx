@@ -1,9 +1,10 @@
 import React, { useContext, useState, useEffect} from "react";
 
+import Config  from '../../config'
 import AppContext from '../../helpers/contexts/App.context'
 import {SwitchGenerationWrapper, StepsWrapper, Step, CursorWrapper, Cursor } from './switch-generation.styles'
 
-const steps = [ 1,2,3]
+const steps = [...Config.layout].splice(1);
 
 export const SwitchGeneration = (props) => {
 
@@ -18,16 +19,17 @@ export const SwitchGeneration = (props) => {
   return (
     <SwitchGenerationWrapper>
      <StepsWrapper>{
-        steps.map( stepIdx => {
+        steps.map( (stepItem, stepIdx) => {
+          const genId = stepIdx + 1
           return (
             <Step 
               key={`step-${stepIdx}`} 
-              cursor={ stepIdx }
+              cursor={genId}
               gen={gen}
               size={steps.length}
-              onClick={()=> setGen(stepIdx)}
+              onClick={()=> setGen(genId)}
             >
-              {stepIdx}
+              {genId}
             </Step>
           )
         })

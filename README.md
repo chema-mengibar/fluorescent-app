@@ -127,6 +127,15 @@ With this function it is possible for example to visualize:
 
 
 ## UI Elements & Features
+- Add/Modify Items
+- Show and modify connections
+- Code Components generator (with Plop)
+- Code Directory/Components/imports Monitoring
+- Display generations of connections
+- Command Actions Modal
+- Server connections/status
+- Key events
+- Work Status
 
 ### Items Selection
 <img src="docs/assets/fluorescent-app_ui-selection.gif" />
@@ -148,6 +157,13 @@ With this function it is possible for example to visualize:
 
 ### Server Action Status
 <img src="docs/assets/fluorescent-app_ui-server.gif" />  
+
+### Display Generations
+With this switch it is possible to delimit the number of connections shown when selecting an element.  
+For example, showing only the direct parent of an item.  
+This function is practical for distiguishing related elements that are in the same column.
+
+<img src="docs/assets/fluorescent-app_ui-generations.gif" />
 
 ### Component Generator and Monitor
 **(see Server-Client Communication)**   
