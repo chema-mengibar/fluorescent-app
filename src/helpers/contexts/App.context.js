@@ -6,6 +6,7 @@ let initialState = {
   name: '',
   dialogIsOpen: false,
   dialogName:null,
+  generation:1,
   server:{
     status:null,
     msg:''
@@ -20,6 +21,8 @@ let reducer = (state, action) => {
       return { ...state, name: state.name = ''}
     case "rename":
       return { ...state, name: action.payload }
+    case "setGeneration":
+      return { ...state, generation: action.payload }
     case "setServerStatus":
       return { ...state, server: { msg: action.payload.msg, status: action.payload.status } }
     case "openDialog":

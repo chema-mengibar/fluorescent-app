@@ -6,6 +6,7 @@ import AppContext from '../../helpers/contexts/App.context'
 import RepositoryContext from '../../helpers/contexts/Repository.context'
 import { setRepo, getRepo, connectFromTo, getItemById, disconnecToFrom} from '../../helpers/repositoryService/repositoryService'
 import {Button} from '../button/button.styles'
+import {SwitchGeneration} from '../switch-generation/switch-generation'
 
 import {theme} from '../../styles/theme.styles'
 
@@ -166,6 +167,10 @@ export const Menu = (props) => {
               <Button dark onClick={()=> { dispatch({ type: "resetFromTo" }); }} > Clear </Button>
             </Block>
           }
+          <Block>
+            <Label>Generation </Label>
+            <SwitchGeneration />  
+          </Block>
         </Area>
         <Area>
           <Block>

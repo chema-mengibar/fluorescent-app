@@ -14,7 +14,7 @@ import {  NodeWrapper, Box, BoxCol, Sticker, Dotted, Li } from './node.styles'
 export const Node = ({ type, label, progress, id, }) => {
   
   const { state, dispatch } = useContext( getContext() )
-  const { dispatchApp } = useContext( AppContext )
+  const { stateApp, dispatchApp } = useContext( AppContext )
 
   function mappProgress( progStr ){
     switch( progStr ){
@@ -39,30 +39,33 @@ export const Node = ({ type, label, progress, id, }) => {
   const [nodeIdFrom, setNodeIdFrom] = useState( false );
   const [nodeIdTo, setNodeIdTo] = useState( false );
   const [nodeProgress, setNodeProgress] = useState( mappProgress(progress) );
+  const [generation, setGeneration] = useState( stateApp.generation );
 
   const [visiblePanel, setVisisblePanel] = useState( false );
 
   function recursionTree(){
+
     // Direction left: children
     const gen1ChildrenIds = getChildren( id )
     setHasChildren( gen1ChildrenIds.length > 0 )
     dispatch({ type: "setFamilyChildren", payload: gen1ChildrenIds});
-    gen1ChildrenIds.forEach( subId => {
+    (generation > 1) && gen1ChildrenIds.forEach( subId => {
       const gen2ChildrenIds = getChildren( subId )
       dispatch({ type: "addToFamilyChildren", payload: gen2ChildrenIds});
-      gen2ChildrenIds.forEach( subId => {
+      (generation > 2) && gen2ChildrenIds.forEach( subId => {
         const gen3ChildrenIds = getChildren( subId )
         dispatch({ type: "addToFamilyChildren", payload: gen3ChildrenIds});
       });
+
     });
     // Direction right: children
     const gen1ParentsIds = getParents(id);
     setHasParents( gen1ParentsIds.length > 0 )
     dispatch({ type: "setFamilyParents", payload: gen1ParentsIds });
-    gen1ParentsIds.forEach( subId => {
+    (generation > 1) &&  gen1ParentsIds.forEach( subId => {
       const gen2ParentsIds = getParents( subId )
       dispatch({ type: "addToFamilyParents", payload: gen2ParentsIds});
-      gen2ParentsIds.forEach( subId => {
+      (generation > 2 ) && gen2ParentsIds.forEach( subId => {
         const gen3ParentsIds = getParents( subId )
         dispatch({ type: "addToFamilyParents", payload: gen3ParentsIds});
       });
@@ -97,6 +100,19 @@ export const Node = ({ type, label, progress, id, }) => {
   useLayoutEffect(() => {
     setIsSelected( state.selectedNodeId == id )
   }, [state.selectedNodeId]);
+ 
+
+  useLayoutEffect(() => {
+    setGeneration(stateApp.generation )
+  }, [stateApp.generation]);
+
+  useLayoutEffect(() => {
+    if( state.selectedNodeId === id ){
+      recursionTree()
+    }
+  }, [generation]);
+
+
  
   useLayoutEffect(() => {
     setNodeProgress( mappProgress(progress) )

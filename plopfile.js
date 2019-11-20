@@ -40,6 +40,8 @@ module.exports = function (plop) {
   plop.setPartial('my-name', '{{cDashCase name}}');
   plop.setPartial('MyName', '{{cPascalCase name}}');
 
+  plop.setPartial('type', '{{type}}');
+
   plop.setGenerator('component', {
     description: 'basic component',
     prompts: [
