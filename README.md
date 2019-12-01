@@ -41,6 +41,20 @@ npm run build
 npm run serve
 ```
 
+## Usage in preject
+
+If you are going to use and commit "fluorescent" in your project repository, 
+1. clone or download "fluorescent,"
+2. name the folder, for example ".fluorescent."
+3. place this script cmd in your project package.json
+`"fluorescent": "npm run --prefix .fluorescent serve"`
+
+So you can start the tool from the terminal, the root path of your project
+```
+npm run fluorescent
+```
+
+
 Open `localhost:8080` in your internet browser  
 
 ## Development
